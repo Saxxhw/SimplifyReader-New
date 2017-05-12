@@ -16,6 +16,7 @@ import com.saxxhw.srn.widget.state.VaryViewHelperController;
 import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Saxxhw on 2017/4/11.
@@ -33,6 +34,8 @@ public abstract class BaseFragment extends Fragment {
 
     private ProgressDialog mProgressDialog;
 
+    private Unbinder unbinder;
+
     @Override
     public void onAttach(Context context) {
         this.mContext = context;
@@ -49,7 +52,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         if (null != getLoadingTargetView()) {
             mVaryViewHelperController = new VaryViewHelperController(getLoadingTargetView());
         }
@@ -58,8 +61,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        bindListener();
         initEventAndData();
+        bindListener();
     }
 
     @SuppressWarnings("TryWithIdenticalCatches")
@@ -78,10 +81,14 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
     /**
      * startActivity
-     *
-     * @param clazz
      */
     protected void readyGo(Class<?> clazz) {
         Intent intent = new Intent(getActivity(), clazz);
@@ -90,9 +97,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * startActivity with bundle
-     *
-     * @param clazz
-     * @param bundle
      */
     protected void readyGo(Class<?> clazz, Bundle bundle) {
         Intent intent = new Intent(getActivity(), clazz);
@@ -125,9 +129,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * startActivityForResult
-     *
-     * @param clazz
-     * @param requestCode
      */
     protected void readyGoForResult(Class<?> clazz, int requestCode) {
         Intent intent = new Intent(getActivity(), clazz);
@@ -136,10 +137,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * startActivityForResult with bundle
-     *
-     * @param clazz
-     * @param requestCode
-     * @param bundle
      */
     protected void readyGoForResult(Class<?> clazz, int requestCode, Bundle bundle) {
         Intent intent = new Intent(getActivity(), clazz);
@@ -151,8 +148,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 展示Toast
-     *
-     * @param resId
      */
     protected void showToast(int resId) {
         Toast.makeText(getActivity(), resId, Toast.LENGTH_SHORT).show();
@@ -160,8 +155,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 展示Toast
-     *
-     * @param str
      */
     protected void showToast(String str) {
         Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
@@ -186,8 +179,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * toggle show loading
-     *
-     * @param toggle
      */
     protected void toggleShowLoading(boolean toggle) {
         if (null == mVaryViewHelperController) {
@@ -203,8 +194,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * toggle show empty
-     *
-     * @param toggle
      */
     protected void toggleShowEmpty(boolean toggle, String msg) {
         if (null == mVaryViewHelperController) {
@@ -225,8 +214,6 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * toggle show network error
-     *
-     * @param toggle
      */
     protected void toggleNetworkError(boolean toggle) {
         if (null == mVaryViewHelperController) {

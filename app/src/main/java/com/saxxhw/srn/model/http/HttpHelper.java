@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.saxxhw.srn.constant.ApiConstants.Strings.BASE_URL;
+import static com.saxxhw.srn.constant.ApiConstants.Strings.BAIDU_IMAGES_URLS;
 
 /**
  * Created by Saxxhw on 2017/4/11.
@@ -84,10 +84,10 @@ public class HttpHelper {
 
     /* ---------------------------------------------初始化End------------------------------------------ */
 
-    public <T> T getRetrofit(Class<T> service) {
+    public <T> T getImageRetrofit(Class<T> service) {
         return new Retrofit
                 .Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BAIDU_IMAGES_URLS)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC).create()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

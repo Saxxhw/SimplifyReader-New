@@ -30,8 +30,8 @@ ext {
     okhttp = '3.6.0'
     retrofit = '2.2.0'
     glide = '3.7.0'
-    rxandroid = '2.0.1'
-    rxjava = '2.1.0'
+    rxandroid = '1.2.1'
+    rxjava = '1.2.5'
     gson = '2.8.0'
 }
 
@@ -60,8 +60,8 @@ dependencies {
     compile "com.github.bumptech.glide:glide:${glide}"
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
     // RxJava
-    compile "io.reactivex.rxjava2:rxandroid:${rxandroid}"
-    compile "io.reactivex.rxjava2:rxjava:${rxjava}"
+    compile "io.reactivex:rxandroid:${rxandroid}"
+    compile "io.reactivex:rxjava:${rxjava}"
     // json解析框架
     compile "com.google.code.gson:gson:${gson}"
     // 日志打印

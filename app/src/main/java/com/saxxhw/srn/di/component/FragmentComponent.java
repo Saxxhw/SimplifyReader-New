@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.saxxhw.srn.di.FragmentScope;
 import com.saxxhw.srn.di.module.FragmentModule;
+import com.saxxhw.srn.ui.fragment.ImageListFragment;
 
 import dagger.Component;
 
@@ -18,4 +19,6 @@ import dagger.Component;
 public interface FragmentComponent {
 
     Activity getActivity();
+
+    void inject(ImageListFragment mImageListFragment);
 }

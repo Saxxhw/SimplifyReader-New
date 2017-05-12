@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.saxxhw.srn.R;
 import com.saxxhw.srn.base.BaseActivity;
-import com.saxxhw.srn.ui.fragment.ImageListFragment;
+import com.saxxhw.srn.ui.fragment.ImageContainerFragment;
 import com.saxxhw.srn.ui.fragment.MusicFragment;
 import com.saxxhw.srn.ui.fragment.VideoListFragment;
 
@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
     BottomNavigationView navigation;
 
     // 图片浏览
-    private ImageListFragment imageListFragment;
+    private ImageContainerFragment imageContainerFragment;
     // 视频爽看
     private VideoListFragment videoListFragment;
     // 音乐轻听
@@ -38,11 +38,6 @@ public class MainActivity extends BaseActivity {
     // Fragment切换标识
     private enum Marker {
         IMAGE, VIDEO, MUSIC
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -105,11 +100,11 @@ public class MainActivity extends BaseActivity {
         switch (marker) {
             case IMAGE:
                 setTitle(R.string.title_image);
-                if (null == imageListFragment) {
-                    imageListFragment = new ImageListFragment();
-                    transaction.add(R.id.content, imageListFragment);
+                if (null == imageContainerFragment) {
+                    imageContainerFragment = new ImageContainerFragment();
+                    transaction.add(R.id.content, imageContainerFragment);
                 } else {
-                    transaction.show(imageListFragment);
+                    transaction.show(imageContainerFragment);
                 }
                 break;
             case VIDEO:
@@ -133,14 +128,15 @@ public class MainActivity extends BaseActivity {
             default:
                 break;
         }
+        transaction.commit();
     }
 
     /**
      * 隐藏全部Fragment，保证界面上只有一个Fragment展示
      */
     private void hideAllFragment(FragmentTransaction ft) {
-        if (null != imageListFragment) {
-            ft.hide(imageListFragment);
+        if (null != imageContainerFragment) {
+            ft.hide(imageContainerFragment);
         }
         if (null != videoListFragment) {
             ft.hide(videoListFragment);

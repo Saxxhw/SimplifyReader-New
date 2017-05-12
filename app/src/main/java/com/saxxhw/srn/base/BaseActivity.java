@@ -44,8 +44,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (null != extras) {
             getBundleExtras(extras);
         }
-        bindListener();
         initEventAndData();
+        bindListener();
     }
 
     @Override
@@ -145,7 +145,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 展示Toast
-     * @param resId
      */
     protected void showToast(int resId){
         Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
@@ -153,7 +152,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 展示Toast
-     * @param str
      */
     protected void showToast(String str){
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
@@ -178,8 +176,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * toggle show loading
-     *
-     * @param toggle
      */
     protected void toggleShowLoading(boolean toggle) {
         if (null == mVaryViewHelperController) {
@@ -195,8 +191,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * toggle show empty
-     *
-     * @param toggle
      */
     protected void toggleShowEmpty(boolean toggle, String msg) {
         if (null == mVaryViewHelperController) {
@@ -217,8 +211,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * toggle show network error
-     *
-     * @param toggle
      */
     protected void toggleNetworkError(boolean toggle) {
         if (null == mVaryViewHelperController) {
