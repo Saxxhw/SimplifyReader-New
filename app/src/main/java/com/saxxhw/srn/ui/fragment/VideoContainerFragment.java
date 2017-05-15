@@ -9,8 +9,16 @@ import android.view.View;
 
 import com.saxxhw.srn.R;
 import com.saxxhw.srn.base.BaseFragment;
+import com.saxxhw.srn.model.bean.VideoListEntity;
+import com.saxxhw.srn.model.http.HttpHelper;
+import com.saxxhw.srn.model.http.api.Apis;
+import com.socks.library.KLog;
 
 import butterknife.BindView;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Saxxhw on 2017/5/11.
@@ -41,6 +49,21 @@ public class VideoContainerFragment extends BaseFragment {
         VideoPagerAdapter adapter = new VideoPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
         tab.setupWithViewPager(viewPager);
+
+        Subscription subscription = new HttpHelper().getVideoRetrofit(Apis.class).getVideoList("搞笑", 0, 5, "all", 0, "today", "published", "6ecd6970268b4c53")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<VideoListEntity>() {
+                    @Override
+                    public void call(VideoListEntity videoListEntity) {
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        KLog.e(throwable);
+                    }
+                });
     }
 
     @Override

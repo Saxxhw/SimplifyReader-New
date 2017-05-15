@@ -23,6 +23,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.saxxhw.srn.constant.ApiConstants.Strings.BAIDU_IMAGES_URLS;
+import static com.saxxhw.srn.constant.ApiConstants.Strings.YOUKU_VIDEOS_URLS;
 
 /**
  * Created by Saxxhw on 2017/4/11.
@@ -88,6 +89,17 @@ public class HttpHelper {
         return new Retrofit
                 .Builder()
                 .baseUrl(BAIDU_IMAGES_URLS)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC).create()))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build()
+                .create(service);
+    }
+
+    public <T> T getVideoRetrofit(Class<T> service) {
+        return new Retrofit
+                .Builder()
+                .baseUrl(YOUKU_VIDEOS_URLS)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC).create()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

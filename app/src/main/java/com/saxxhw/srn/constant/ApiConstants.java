@@ -23,7 +23,7 @@ public class ApiConstants {
 
     public static final class Strings {
         public static final String BAIDU_IMAGES_URLS = "http://image.baidu.com/data/";
-        public static final String YOUKU_VIDEOS_URLS = "https://openapi.youku.com/v2/searches/video/by_keyword.json";
+        public static final String YOUKU_VIDEOS_URLS = "https://openapi.youku.com/v2/searches/video/";
         public static final String YOUKU_USER_URLS = "https://openapi.youku.com/v2/users/show.json";
         public static final String DOUBAN_PLAY_LIST_URLS = "http://www.douban.com/j/app/radio/people";
     }
