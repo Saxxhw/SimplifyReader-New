@@ -11,7 +11,7 @@ import com.saxxhw.srn.R;
 import com.saxxhw.srn.base.BaseActivity;
 import com.saxxhw.srn.ui.fragment.ImageContainerFragment;
 import com.saxxhw.srn.ui.fragment.MusicFragment;
-import com.saxxhw.srn.ui.fragment.VideoListFragment;
+import com.saxxhw.srn.ui.fragment.VideoContainerFragment;
 
 import butterknife.BindView;
 
@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
     // 图片浏览
     private ImageContainerFragment imageContainerFragment;
     // 视频爽看
-    private VideoListFragment videoListFragment;
+    private VideoContainerFragment videoContainerFragment;
     // 音乐轻听
     protected MusicFragment musicFragment;
 
@@ -109,11 +109,11 @@ public class MainActivity extends BaseActivity {
                 break;
             case VIDEO:
                 setTitle(R.string.title_video);
-                if (null == videoListFragment) {
-                    videoListFragment = new VideoListFragment();
-                    transaction.add(R.id.content, videoListFragment);
+                if (null == videoContainerFragment) {
+                    videoContainerFragment = new VideoContainerFragment();
+                    transaction.add(R.id.content, videoContainerFragment);
                 } else {
-                    transaction.show(videoListFragment);
+                    transaction.show(videoContainerFragment);
                 }
                 break;
             case MUSIC:
@@ -138,8 +138,8 @@ public class MainActivity extends BaseActivity {
         if (null != imageContainerFragment) {
             ft.hide(imageContainerFragment);
         }
-        if (null != videoListFragment) {
-            ft.hide(videoListFragment);
+        if (null != videoContainerFragment) {
+            ft.hide(videoContainerFragment);
         }
         if (null != musicFragment) {
             ft.hide(musicFragment);

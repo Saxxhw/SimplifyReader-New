@@ -10,4 +10,12 @@
         <item>摄影</item>
         <item>美食</item>
     </string-array>
+
+    <!-- "视频爽看"子标题 -->
+    <string-array name="Video_Titles">
+        <item>热门</item>
+        <item>搞笑</item>
+        <item>动漫</item>
+        <item>综艺</item>
+    </string-array>
 </resources>
