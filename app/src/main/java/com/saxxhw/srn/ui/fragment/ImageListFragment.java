@@ -14,6 +14,7 @@ import com.saxxhw.srn.base.PresenterFragment;
 import com.saxxhw.srn.model.bean.ImageListEntity;
 import com.saxxhw.srn.presenter.ImageListPresenter;
 import com.saxxhw.srn.presenter.contract.ImageListContract;
+import com.saxxhw.srn.ui.activity.BigImageActivity;
 import com.saxxhw.srn.ui.adapter.ImageListAdapter;
 
 import java.util.List;
@@ -26,7 +27,11 @@ import butterknife.BindView;
  * 功能：图片浏览
  */
 
-public class ImageListFragment extends PresenterFragment<ImageListPresenter> implements ImageListContract.View, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
+public class ImageListFragment extends PresenterFragment<ImageListPresenter> implements
+        ImageListContract.View,
+        SwipeRefreshLayout.OnRefreshListener,
+        BaseQuickAdapter.RequestLoadMoreListener,
+        BaseQuickAdapter.OnItemClickListener {
 
     @BindView(R.id.llyt_refresh)
     LinearLayout llytRefresh;
@@ -92,6 +97,7 @@ public class ImageListFragment extends PresenterFragment<ImageListPresenter> imp
         srlRefresh.setOnRefreshListener(this);
         adapter.setOnLoadMoreListener(this, rvImageList);
         adapter.disableLoadMoreIfNotFullPage();
+        adapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -131,5 +137,15 @@ public class ImageListFragment extends PresenterFragment<ImageListPresenter> imp
     @Override
     public boolean isFirstRefresh() {
         return adapter.getData().isEmpty();
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        ImageListEntity.ImgsBean bean = (ImageListEntity.ImgsBean) adapter.getItem(position);
+        if (null != bean) {
+            Bundle bundle = new Bundle();
+            bundle.putString(BigImageActivity.IMAGE_URL, bean.getImageUrl());
+            readyGo(BigImageActivity.class, bundle);
+        }
     }
 }
