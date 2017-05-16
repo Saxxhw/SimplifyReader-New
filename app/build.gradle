@@ -21,6 +21,11 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 ext {
@@ -36,7 +41,7 @@ ext {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -66,7 +71,7 @@ dependencies {
     // json解析框架
     compile "com.google.code.gson:gson:${gson}"
     // 日志打印
-    compile "com.github.zhaokaiqiang.klog:library:1.6.0"
+    compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
     // RecyclerView
-    compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.15"
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.15'
 }

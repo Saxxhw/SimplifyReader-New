@@ -16,7 +16,6 @@ import com.saxxhw.srn.presenter.VideoListPresenter;
 import com.saxxhw.srn.presenter.contract.VideoListContract;
 import com.saxxhw.srn.ui.adapter.VideoListAdapter;
 
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,7 +26,11 @@ import butterknife.BindView;
  * 功能：
  */
 
-public class VideoListFragment extends PresenterFragment<VideoListPresenter> implements VideoListContract.View, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
+public class VideoListFragment extends PresenterFragment<VideoListPresenter> implements
+        VideoListContract.View,
+        SwipeRefreshLayout.OnRefreshListener,
+        BaseQuickAdapter.RequestLoadMoreListener,
+        BaseQuickAdapter.OnItemClickListener {
 
     @BindView(R.id.fl_refresh)
     FrameLayout flRefresh;
@@ -92,6 +95,7 @@ public class VideoListFragment extends PresenterFragment<VideoListPresenter> imp
     protected void bindListener() {
         srlRefresh.setOnRefreshListener(this);
         adapter.setOnLoadMoreListener(this, rvVideo);
+        adapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -131,5 +135,13 @@ public class VideoListFragment extends PresenterFragment<VideoListPresenter> imp
     @Override
     public boolean isFirstRefresh() {
         return adapter.getData().isEmpty();
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        VideoListEntity.VideosBean bean = (VideoListEntity.VideosBean) adapter.getItem(position);
+        if (null != bean){
+
+        }
     }
 }
