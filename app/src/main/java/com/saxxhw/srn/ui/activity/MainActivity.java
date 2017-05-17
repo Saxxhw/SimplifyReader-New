@@ -13,7 +13,12 @@ import com.saxxhw.srn.ui.fragment.ImageContainerFragment;
 import com.saxxhw.srn.ui.fragment.MusicFragment;
 import com.saxxhw.srn.ui.fragment.VideoContainerFragment;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
+import rx.Observable;
+import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * Created by Saxxhw on 2017/4/11.
@@ -27,6 +32,13 @@ public class MainActivity extends BaseActivity {
      */
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
+
+    // 用户是否双击返回键的标志位
+    private boolean doubleBackToExitPressedOnce = false;
+    // 返回按钮两次点击的时间间隔
+    private static final long BACK_DURATION = 2;
+    // 双击退出订阅
+    private Subscription subscription;
 
     // 图片浏览
     private ImageContainerFragment imageContainerFragment;
@@ -68,6 +80,36 @@ public class MainActivity extends BaseActivity {
     @Override
     protected boolean hideBackButton() {
         return true;
+    }
+
+    /**
+     * 双击完全退出程序
+     */
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            finish();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        showToast(R.string.double_click_exit_program);
+
+        subscription = Observable.timer(BACK_DURATION, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
+            @Override
+            public void call(Long aLong) {
+                doubleBackToExitPressedOnce = false;
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
