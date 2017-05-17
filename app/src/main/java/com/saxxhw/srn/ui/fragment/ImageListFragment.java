@@ -1,5 +1,6 @@
 package com.saxxhw.srn.ui.fragment;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -143,9 +144,16 @@ public class ImageListFragment extends PresenterFragment<ImageListPresenter> imp
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ImageListEntity.ImgsBean bean = (ImageListEntity.ImgsBean) adapter.getItem(position);
         if (null != bean) {
+            int[] location = new int[2];
+            view.getLocationOnScreen(location);
             Bundle bundle = new Bundle();
-            bundle.putString(BigImageActivity.IMAGE_URL, bean.getImageUrl());
+            bundle.putString(BigImageActivity.INTENT_IMAGE_URL_TAG, bean.getThumbnailUrl());
+            bundle.putInt(BigImageActivity.INTENT_IMAGE_X_TAG, location[0]);
+            bundle.putInt(BigImageActivity.INTENT_IMAGE_Y_TAG, location[1]);
+            bundle.putInt(BigImageActivity.INTENT_IMAGE_W_TAG, view.getWidth());
+            bundle.putInt(BigImageActivity.INTENT_IMAGE_H_TAG, view.getHeight());
             readyGo(BigImageActivity.class, bundle);
+            getActivity().overridePendingTransition(0, 0);
         }
     }
 }
