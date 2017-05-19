@@ -230,9 +230,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void getBundleExtras(Bundle extras);
 
-    protected abstract void bindListener();
-
     protected abstract void initEventAndData();
+
+    protected abstract void bindListener();
 
     protected abstract boolean hideBackButton();
 

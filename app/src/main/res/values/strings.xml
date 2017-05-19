@@ -1,6 +1,9 @@
 <resources>
     <!-- App名称 -->
     <string name="app_name">简阅</string>
+    <string name="copy_right">Copyright &#169; 2017 简阅 All Rights Reserved\nPowered by Saxxhw</string>
+    <string name="version">V %1$s</string>
+    <string name="slogan">看尽生活中的点滴</string>
 
     <!-- 双击返回退出应用文案提示 -->
     <string name="double_click_exit_program">双击退出程序</string>
