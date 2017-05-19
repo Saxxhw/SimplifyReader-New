@@ -13,7 +13,7 @@ import com.saxxhw.srn.model.bean.ImageListEntity;
 /**
  * Created by Saxxhw on 2017/5/12.
  * 邮箱：Saxxhw@126.com
- * 功能：
+ * 功能：图片列表适配器
  */
 
 public class ImageListAdapter extends BaseQuickAdapter<ImageListEntity.ImgsBean, BaseViewHolder> {
